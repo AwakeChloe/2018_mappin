@@ -33,7 +33,7 @@
 import API from '../../../api/api'
 import Alert from '../../../components/alert_tip'
 import LoginChange from '../../../components/loginChange'
-import {login} from '../../../vuex/actions.js'
+
 export default {
   name: 'app',
 
@@ -122,12 +122,6 @@ export default {
           this.hasAlert = true
         }
       }
-    }
-  },
-
-  vuex: {
-    actions: {
-      login
     }
   }
 }
