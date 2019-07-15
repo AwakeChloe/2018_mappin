@@ -33,6 +33,7 @@
 import API from '../../../api/api'
 import Alert from '../../../components/alert_tip'
 import LoginChange from '../../../components/loginChange'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'app',
@@ -63,6 +64,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('login'),
+
     closeAlert () {
       this.hasAlert = false
     },
