@@ -18,11 +18,17 @@ export default {
 
 <style>
   html, body, .app {
-    margin:0;
-    height:100%;
+    margin: 0;
+    height: 100%;
   }
 
   .vtoper {
-    height: 5%;
+    position: absolute;
+    height: 50px;
+    z-index: 999;
+    top: 10px;
+    left: 50%;
+    transform:translate(-50%, 0);
+    width: 80%;
   }
 </style>

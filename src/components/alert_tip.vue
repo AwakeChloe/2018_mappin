@@ -1,7 +1,11 @@
 <template>
   <div class='fullScream'>
     <div class='model'>
-      <button @click="handleClick">确认</button>
+      <div class="alertText">{{alertText}}</div>
+      <hr/>
+      <div class="close">
+        <button @click="handleClick">确认</button>
+      </div>
     </div>
   </div>
 </template>
@@ -33,12 +37,30 @@ export default {
   }
 
   .model {
+    padding: 30px;
     position: absolute;
+    border-radius: 7px;
     left: 50%;
     top: 50%;
-    width: 30%;
-    height: 40%;
+    width: 300px;
+    height: 127px;
     transform:translate(-50%, -50%);
     background-color: white;
+  }
+
+  .alertText {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  button {
+    width: 50px;
+    height: 30px;
+  }
+
+  .close {
+    position: relative;
+    left: 50%;
+    transform:translate(-25px, 0);
   }
 </style>

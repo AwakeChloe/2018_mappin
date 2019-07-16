@@ -1,8 +1,8 @@
 <template>
   <div>
-    <router-link to="/makePoint" tag="span">标点</router-link>
-    <router-link to="/secretChange" tag="span">看点</router-link>
-    <router-link to="/me" tag="span">我</router-link>
+    <router-link id="makePoint" to="/makePoint" tag="button">版图标注</router-link>
+    <router-link id="watchPoint" to="/watchPoint" tag="button">我的版图</router-link>
+    <router-link id="me" to="/me" tag="button">我</router-link>
   </div>
 </template>
 
@@ -13,5 +13,32 @@ export default {
 </script>
 
 <style scoped>
+  #makePoint, #watchPoint, #me {
+    height: 50px;
+    background-color: gray;
+    float: left;
+    border: none;
+    padding: 0;
+  }
 
+  div {
+    box-shadow: 0 7px 10px 0 rgba(0, 0, 0, .15);
+    border-radius: 15px;
+  }
+
+  #makePoint {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    width: 25%;
+  }
+
+  #watchPoint {
+    width: 50%;
+  }
+
+  #me {
+    width: 25%;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+  }
 </style>

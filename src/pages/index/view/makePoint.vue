@@ -2,10 +2,10 @@
   <div class="makePoint">
     <div id="map"></div>
     <div class="makePointButton">
-      <button @click="sendPoint">添加一个点</button>
+      <button id="makePoint" @click="sendPoint">创建标注</button>
     </div>
     <model @close="close" v-show="hasModel" :lat="point_lat" :lng="point_lng" @makePoint="makePoint"></model>
-    <AlertTip :alert-text="alertText" @closeAlert="close" v-show="hasPointMessage"></AlertTip>
+    <AlertTip :alert-text="alertText" @closeAlert="close" v-show="hasAlert"></AlertTip>
     <pointInfo :pointInfo="pointInfo" v-if="hasPointMessage" @closePointMessage="close" @deletePoint="deletePoint"></pointInfo>
   </div>
 </template>
@@ -47,6 +47,7 @@ export default {
   methods: {
     close () {
       this.hasModel = false
+      this.hasAlert = false
       this.hasPointMessage = false
       this.map.removeEventListener('click', this.showInfo)
     },
@@ -58,7 +59,12 @@ export default {
     },
 
     sendPoint () {
-      this.map.addEventListener('click', this.showInfo)
+      if (this.$store.state.hasLogin) {
+        this.map.addEventListener('click', this.showInfo)
+      } else {
+        this.hasAlert = true
+        this.alertText = '请先登录'
+      }
     },
 
     makePoint () {
@@ -120,7 +126,24 @@ export default {
 <style scoped>
 
   .makePoint {
-    height: 80%;
+    height: 100%;
+  }
+
+  .makePointButton {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    z-index: 999;
+    transform:translate(0, -50%);
+  }
+
+  #makePoint {
+    height: 70px;
+    width: 70px;
+    border-radius: 15px;
+    background-color: gray;
+    border: none;
+    padding: 0;
   }
 
   #map {
