@@ -144,6 +144,7 @@ export default {
     background-color: gray;
     border: none;
     padding: 0;
+    outline: none;
   }
 
   #map {

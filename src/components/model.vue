@@ -1,20 +1,21 @@
 <template>
   <div class="fullScream">
     <div class="model">
-      <div class="modelContain">
+      <div class="modelCenter">
         <div>
-          <label for="topic">标题:</label>
+          <label for="topic">名称</label>
           <input name="topic" id="topic" type="text" v-model="topic"/>
         </div>
+        <hr/>
         <div>
-          <label for="content">内容:</label>
-          <input name="content" id="content" type="text" v-model="content"/>
+          <label for="content"></label>
+          <textarea placeholder="输入文字..." name="content" id="content" type="text" v-model="content"></textarea>
         </div>
         <input type="file" @change="selectImgs()" multiple accept="image/*" ref="file">
       </div>
-      <div class="modelFoot">
-        <button @click="confirm">确认</button>
-        <button @click="close">关闭</button>
+      <div align="center" class="modelFoot">
+        <button class="close" @click="confirm">确认</button>
+        <button class="close" @click="close">关闭</button>
       </div>
     </div>
   </div>
@@ -97,13 +98,46 @@ export default {
     background-color: rgba(0, 0, 0, 0.5);
   }
 
+  .modelCenter {
+    width: 90%;
+    height: 60%;
+    margin: 0 auto;
+  }
+
+  input, textarea{
+    width: 75%;
+    outline: none;
+    border: none;
+  }
+
+  #topic {
+    margin-top: 10px;
+    height: 40px;
+  }
+
+  #content {
+    height: 100px;
+    width: 100%;
+  }
+
+  .close {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
+    margin: 30px;
+    outline: none;
+  }
+
   .model {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 30%;
-    height: 40%;
+    width: 50%;
+    height: 50%;
     transform:translate(-50%, -50%);
     background-color: white;
+    border-radius: 10px;
+    padding: 10px;
   }
 </style>

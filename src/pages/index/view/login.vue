@@ -14,6 +14,8 @@
       <div v-show="isRegister">
         <label for="captchaCode"></label>
         <input placeholder="验证码" name="password" id="captchaCode" type="text" v-model="captchaCode"/>
+        <label for="ResisterEmail"></label>
+        <input placeholder="邮箱" name="ResisterEmail" id="ResisterEmail" type="text" v-model="ResisterEmail"/>
       </div>
     </div>
     <div class="loginFoot">
@@ -57,7 +59,8 @@ export default {
       alertText: '',
       userInfo: '',
       hasChange: false,
-      emailHasChange: false
+      emailHasChange: false,
+      ResisterEmail: ''
     }
   },
 
@@ -112,7 +115,8 @@ export default {
       let data = {
         captcha_code: this.captchaCode,
         username: this.username,
-        password: this.password
+        password: this.password,
+        email: this.ResisterEmail
       }
       this.userInfo = await API.CaptchaCode(data)
       if (this.userInfo.response.message === '验证码不正确') {
@@ -155,6 +159,7 @@ export default {
     border: 1px solid black;
     margin-bottom: 10px;
   }
+
   .loginCenter {
     height: 30%;
   }

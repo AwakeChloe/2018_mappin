@@ -30,15 +30,18 @@ export default {
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
     width: 25%;
+    outline: none;
   }
 
   #watchPoint {
     width: 50%;
+    outline: none;
   }
 
   #me {
     width: 25%;
     border-bottom-right-radius: 15px;
     border-top-right-radius: 15px;
+    outline: none;
   }
 </style>
