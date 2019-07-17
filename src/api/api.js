@@ -79,7 +79,7 @@ class API extends Server {
    */
   async accountRegister (data) {
     try {
-      let result = await this.axios('post', 'http://127.0.0.1:5000/auth/register', data)
+      let result = await this.axios('post', 'http://47.102.147.80:80/auth/register', data)
       if (result.status !== 0 && (result instanceof Object)) {
         return result || []
       } else {
