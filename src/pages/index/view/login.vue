@@ -19,7 +19,6 @@
       </div>
     </div>
     <div class="loginFoot">
-      <div @click="loginOrRegister">{{isRegister ? '去登录' : '去注册'}}</div>
       <div align="center" v-show="isRegister">
         <img @click="getCaptchaCode" :src=this.captchaCodeImg alt="img is wrong"/>
         <button class="defaultButton" v-show="isRegister === true" @click="accountRegister">注册</button>
@@ -27,7 +26,10 @@
       <div align="center">
         <button class="defaultButton" v-show="isRegister === false" @click="accountLogin">登录</button>
       </div>
-      <button v-show="isRegister === false" @click="resetPassword">重置密码</button>
+      <div id="loginOrRegister">
+        <div class="loginOrRegister" @click="loginOrRegister">{{isRegister ? '去登录' : '去注册'}}</div>
+        <div id="resetPassword" @click="resetPassword">重置密码</div>
+      </div>
       <alert v-show="hasAlert" :alert-text="alertText" @closeAlert="closeAlert"></alert>
       <login-change v-show="hasChange" @cancelChange="cancelChange"></login-change>
     </div>
@@ -152,7 +154,7 @@ export default {
 
   input {
     height: 10px;
-    width: 80%;
+    width: 70%;
     padding: 10px;
     outline: none;
     border-radius: 15px;
@@ -160,8 +162,9 @@ export default {
     margin-bottom: 10px;
   }
 
-  .loginCenter {
-    height: 30%;
+  #resetPassword {
+    float: right;
+    margin-right: 10%;
   }
 
   .defaultButton {
@@ -171,6 +174,23 @@ export default {
     border: none;
     box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.15);
     display: block;
+  }
+
+  #loginOrRegister {
+    float: left;
+    width: 100%;
+    position: absolute;
+    padding: 10px 0;
+    color: gray;
+  }
+
+  .loginOrRegister {
+    float: left;
+    margin-left: 10%;
+  }
+
+  .loginFoot div img {
+    margin-bottom: 20px;
   }
 
   .loginHead {

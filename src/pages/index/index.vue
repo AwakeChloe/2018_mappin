@@ -25,7 +25,7 @@ export default {
   .vtoper {
     position: absolute;
     height: 50px;
-    z-index: 999;
+    z-index: 10;
     top: 10px;
     left: 50%;
     transform:translate(-50%, 0);

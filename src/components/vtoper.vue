@@ -2,7 +2,7 @@
   <div>
     <router-link id="makePoint" to="/makePoint" tag="button">版图标注</router-link>
     <router-link id="watchPoint" to="/watchPoint" tag="button">我的版图</router-link>
-    <router-link id="me" to="/me" tag="button">我</router-link>
+    <router-link id="me" to="/myMessage" tag="button">我</router-link>
   </div>
 </template>
 

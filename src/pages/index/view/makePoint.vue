@@ -133,7 +133,7 @@ export default {
     position: absolute;
     right: 0;
     top: 50%;
-    z-index: 999;
+    z-index: 10;
     transform:translate(0, -50%);
   }
 
