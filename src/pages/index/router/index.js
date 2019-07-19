@@ -4,7 +4,7 @@ import Router from 'vue-router'
 const makePoint = resolve => require(['../view/makePoint'], resolve)
 const myMessage = resolve => require(['../view/myMessage'], resolve)
 const login = resolve => require(['../view/login'], resolve)
-const secretChange = resolve => require(['../view/secretChange'], resolve)
+const watchPoint = resolve => require(['../view/watchPoint'], resolve)
 const personalMessage = resolve => require(['../view/personalMessage'], resolve)
 const accountSafe = resolve => require(['../view/accountSafe'], resolve)
 
@@ -41,9 +41,9 @@ export default new Router({
       component: login
     },
     {
-      path: '/secretChange',
-      name: 'secretChange',
-      component: secretChange
+      path: '/watchPoint',
+      name: 'watchPoint',
+      component: watchPoint
     }
   ]
 })

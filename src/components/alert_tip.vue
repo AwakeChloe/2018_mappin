@@ -37,12 +37,13 @@ export default {
   }
 
   .model {
-    padding: 30px;
+    padding: 20px;
     position: absolute;
+    z-index: 11;
     border-radius: 7px;
     left: 50%;
     top: 50%;
-    width: 300px;
+    width: 180px;
     height: 127px;
     transform:translate(-50%, -50%);
     background-color: white;
@@ -59,8 +60,10 @@ export default {
   }
 
   .close {
+    width: 50px;
     position: relative;
     left: 50%;
+    margin-top: 20px;
     transform:translate(-25px, 0);
   }
 </style>

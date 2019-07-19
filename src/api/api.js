@@ -57,7 +57,7 @@ class API extends Server {
    */
   async accountLogin (data) {
     try {
-      let result = await this.axios('post', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/login', data)
+      let result = await this.axios('post', 'https://47.102.147.80:8080/api/auth/login', data)
       if (result.status !== 0 && (result instanceof Object)) {
         return result || []
       } else {
@@ -79,12 +79,12 @@ class API extends Server {
    */
   async accountRegister (data) {
     try {
-      let result = await this.axios('post', 'http://47.102.147.80:80/auth/register', data)
+      let result = await this.axios('post', 'http://47.102.147.80:8080/auth/register', data)
       if (result.status !== 0 && (result instanceof Object)) {
         return result || []
       } else {
         let err = {
-          tip: '登录失败',
+          tip: '注册失败',
           response: result
         }
         return err

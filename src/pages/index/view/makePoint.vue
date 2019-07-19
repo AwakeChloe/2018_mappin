@@ -1,8 +1,23 @@
 <template>
   <div class="makePoint">
     <div id="map"></div>
+    <div class="search" ref="searchBox">
+      <div>
+        <img alt="search" src="../../../../static/search.svg">
+        <label for="search"></label>
+        <input placeholder="搜地点" name="search" id="search" type="text" ref="searchText" v-model="search"/>
+        <button @click="startSearch">搜索</button>
+      </div>
+    </div>
     <div class="makePointButton">
-      <button id="makePoint" @click="sendPoint">创建标注</button>
+      <button id="makePoint" @click="sendPoint">
+        <span>创建标注</span>
+        <img id="create" src="../../../../static/create.svg" alt="创建"/>
+      </button>
+      <button id="geolocation" @click="geolocation">
+        <span>当前位置</span>
+        <img id="geolocationImg" src="../../../../static/geolocation.svg" alt="定位"/>
+      </button>
     </div>
     <model @close="close" v-show="hasModel" :lat="point_lat" :lng="point_lng" @makePoint="makePoint"></model>
     <AlertTip :alert-text="alertText" @closeAlert="close" v-show="hasAlert"></AlertTip>
@@ -15,6 +30,7 @@ import Model from '../../../components/model'
 import API from '../../../api/api'
 import AlertTip from '../../../components/alert_tip'
 import PointInfo from '../../../components/PointInfo'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'makePoint',
@@ -32,7 +48,10 @@ export default {
       hasPointMessage: false,
       pointInfo: '',
       markerName: '',
-      pointId: ''
+      pointId: '',
+      search: '',
+      searchAC: '',
+      searchButton: ''
     }
   },
 
@@ -42,9 +61,20 @@ export default {
     // eslint-disable-next-line no-undef
     this.map.centerAndZoom(new BMap.Point(116.404, 39.915), 11)
     this.map.enableScrollWheelZoom(true)
+    this.changeRoute('makePoint')
+    // eslint-disable-next-line no-undef
+    this.searchAC = new BMap.Autocomplete({
+      'input': this.$refs.searchText,
+      'location': this.map,
+      'baseDom': this.$refs.searchBox
+    })
+    // eslint-disable-next-line no-undef
+    this.searchButton = new BMap.LocalSearch(this.map, {renderOptions: {map: this.map}})
   },
 
   methods: {
+    ...mapActions(['changeRoute']),
+
     close () {
       this.hasModel = false
       this.hasAlert = false
@@ -56,6 +86,17 @@ export default {
       this.hasModel = true
       this.point_lng = e.point.lng
       this.point_lat = e.point.lat
+    },
+
+    geolocation () {
+      // eslint-disable-next-line no-undef
+      let geolocation = new BMap.Geolocation()
+      geolocation.getCurrentPosition((r) => {
+        // eslint-disable-next-line no-undef
+        let mk = new BMap.Marker(r.point)
+        this.map.addOverlay(mk)
+        this.map.panTo(r.point)
+      }, {enableHighAccuracy: true})
     },
 
     sendPoint () {
@@ -71,6 +112,16 @@ export default {
       this.hasModel = false
       this.autoPoint()
       this.map.removeEventListener('click', this.showInfo)
+    },
+
+    startSearch () {
+      this.searchButton.clearResults()
+      // 失去焦点收起手机上的键盘
+      this.$refs.searchText.blur()
+      // 隐藏autocomplete
+      this.searchAC.hide()
+      this.search = this.$refs.searchText.value
+      this.searchButton.search(this.search)
     },
 
     async deletePoint () {
@@ -134,17 +185,102 @@ export default {
     right: 0;
     top: 50%;
     z-index: 10;
+    box-shadow: -1px 0 20px 7px rgba(0,0,0,0.16);
     transform:translate(0, -50%);
+    border-radius: 15px;
+    width: 70px;
   }
 
-  #makePoint {
+  .search {
+    width: 90%;
+    height: 40px;
+    background-color: white;
+    border-radius: 15px;
+    position: absolute;
+    transform:translate(-50%, 0);
+    box-shadow: 0 6px 20px 3px rgba(0,0,0,0.16);
+    top: 100px;
+    left: 50%;
+  }
+
+  .search div {
+    width: 100%;
+    height: 40px;
+    border-radius: 15px;
+    position: relative;
+  }
+
+  .search div button {
+    width: 60px;
+    height: 40px;
+    border-radius: 15px;
+    outline: none;
+    background-color: rgb(255,179,0);
+    position: absolute;
+    border: none;
+    right: 0;
+  }
+
+  input {
+    width: 70%;
+    padding-left: 5px;
+    border: white;
+    outline: none;
+    border-radius: 15px;
+    position: absolute;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+
+  #makePoint, #geolocation {
     height: 70px;
     width: 70px;
-    border-radius: 15px;
-    background-color: gray;
+    background-color: rgb(255,255,255);
     border: none;
     padding: 0;
     outline: none;
+    float: right;
+  }
+
+  #makePoint {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+
+  #geolocation {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .search img {
+    height: 17px;
+    width: 17px;
+    position: relative;
+    z-index: 11;
+    transform: translate(0, -50%);
+    top: 50%;
+    left: 15px;
+  }
+
+  #create {
+    height: 32px;
+    width: 23px;
+    position: relative;
+    bottom: 18px;
+  }
+
+  #geolocationImg {
+    height: 32px;
+    width: 32px;
+    position: relative;
+    bottom: 18px;
+  }
+
+  span {
+    position: relative;
+    top: 40px;
   }
 
   #map {

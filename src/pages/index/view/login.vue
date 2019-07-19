@@ -124,7 +124,7 @@ export default {
       if (this.userInfo.response.message === '验证码不正确') {
         this.alertText = this.userInfo.response.message
         this.hasAlert = true
-      } else if (this.userInfo.response.message !== '验证码不正确') {
+      } else {
         let res = await API.accountRegister(data)
         if (res.tip) {
           this.hasAlert = true
@@ -169,11 +169,12 @@ export default {
 
   .defaultButton {
     width: 80%;
-    height: 52px;
+    height: 40px;
     border-radius: 52px;
     border: none;
     box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.15);
     display: block;
+    background-color: rgb(255,179,0);
   }
 
   #loginOrRegister {

@@ -31,6 +31,7 @@
 
 <script>
 import EmailChange from '../../../components/emailChange'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'myMessage',
@@ -45,7 +46,13 @@ export default {
     }
   },
 
+  mounted () {
+    this.changeRoute('me')
+  },
+
   methods: {
+    ...mapActions(['changeRoute']),
+
     login () {
       this.$router.push({name: 'login'})
     },

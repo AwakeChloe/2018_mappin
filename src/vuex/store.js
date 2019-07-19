@@ -7,7 +7,8 @@ Vue.use(Vuex)
 Vue.config.debug = true
 
 const state = {
-  hasLogin: false
+  hasLogin: false,
+  routeName: ''
 }
 
 export default new Vuex.Store({

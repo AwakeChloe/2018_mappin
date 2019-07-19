@@ -24,11 +24,11 @@ export default {
 
   .vtoper {
     position: absolute;
-    height: 50px;
+    height: 60px;
     z-index: 10;
     top: 10px;
     left: 50%;
     transform:translate(-50%, 0);
-    width: 80%;
+    width: 90%;
   }
 </style>
