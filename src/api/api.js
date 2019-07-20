@@ -12,7 +12,7 @@ class API extends Server {
   async getCaptchaCode () {
     try {
       let result = await this.forcaptcha('post', 'http://elm.cangdu.org/v1/captchas', {})
-      if (result.status === 1 && (result instanceof Object)) {
+      if (result.status === 1 && result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -35,7 +35,7 @@ class API extends Server {
   async CaptchaCode (data) {
     try {
       let result = await this.forcaptcha('post', 'http://elm.cangdu.org/v2/login', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -57,8 +57,8 @@ class API extends Server {
    */
   async accountLogin (data) {
     try {
-      let result = await this.axios('post', 'https://47.102.147.80:8080/api/auth/login', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      let result = await this.register('post', 'http://47.102.147.80:8080/auth/login', data)
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -79,8 +79,8 @@ class API extends Server {
    */
   async accountRegister (data) {
     try {
-      let result = await this.axios('post', 'http://47.102.147.80:8080/auth/register', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      let result = await this.register('post', 'http://47.102.147.80:8080/auth/register', data)
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -103,7 +103,7 @@ class API extends Server {
     try {
       // eslint-disable-next-line no-undef
       let result = await this.axios('get', '/v1/user' + getUrlConcat(data))
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -123,12 +123,54 @@ class API extends Server {
 
   async sendPoint (data) {
     try {
-      let result = await this.axios('post', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/sendPoint', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      let result = await this.axios('post', 'http://47.102.147.80:8080/api/posts', data)
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
           tip: '创建失败',
+          response: result
+        }
+        return err
+      }
+    } catch (err) {
+      throw err
+    }
+  }
+
+  /**
+   * 获取信息盒子
+   */
+
+  async getInfoBox (data) {
+    try {
+      let result = await this.axios('get', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/getInfoBox', data)
+      if (result instanceof Object) {
+        return result || []
+      } else {
+        let err = {
+          tip: '获取失败',
+          response: result
+        }
+        return err
+      }
+    } catch (err) {
+      throw err
+    }
+  }
+
+  /**
+   * 发送点的信息
+   */
+
+  async tokenVerify (data) {
+    try {
+      let result = await this.axios('post', '', data)
+      if (result instanceof Object) {
+        return result || []
+      } else {
+        let err = {
+          tip: 'token验证失败',
           response: result
         }
         return err
@@ -145,7 +187,7 @@ class API extends Server {
   async getAllPoint (data) {
     try {
       let result = await this.axios('get', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/getAllPoint', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -166,7 +208,7 @@ class API extends Server {
   async getOnePoint (data) {
     try {
       let result = await this.axios('post', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/getOnePoint', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -187,7 +229,7 @@ class API extends Server {
   async sendNewPoint (data) {
     try {
       let result = await this.axios('put', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/sendNewPoint', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -208,7 +250,7 @@ class API extends Server {
   async deletePoint (data) {
     try {
       let result = await this.axios('post', 'https://www.easy-mock.com/mock/5c01297d4ed9b43d7590d554/example/deletePoint', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -229,7 +271,7 @@ class API extends Server {
   async resetPassword (data) {
     try {
       let result = await this.axios('post', '', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -250,7 +292,7 @@ class API extends Server {
   async emailChange (data) {
     try {
       let result = await this.axios('put', '', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {
@@ -271,7 +313,7 @@ class API extends Server {
   async confirmEmailChange (data) {
     try {
       let result = await this.axios('get', '', data)
-      if (result.status !== 0 && (result instanceof Object)) {
+      if (result instanceof Object) {
         return result || []
       } else {
         let err = {

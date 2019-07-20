@@ -24,7 +24,7 @@ export default {
 
 <style scoped>
   .head {
-    height: 67px;
+    height: 77px;
     position: relative;
     z-index: 11;
     background-color: white;

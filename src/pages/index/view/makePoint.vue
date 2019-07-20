@@ -70,6 +70,7 @@ export default {
     })
     // eslint-disable-next-line no-undef
     this.searchButton = new BMap.LocalSearch(this.map, {renderOptions: {map: this.map}})
+    this.autoPoint()
   },
 
   methods: {

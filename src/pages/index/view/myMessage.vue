@@ -2,29 +2,36 @@
   <div class="myMessage">
     <div class="myMessageTop"></div>
     <div class="myMessageCenter">
-      <div @click="login" class="loginOrMine">
-        <img id="head" alt="头像" src="../../../../static/head.jpg">
+      <div v-if="$store.state.hasLogin === false" @click="login" class="loginOrMine">
+        <img class="head" alt="头像" src="../../../../static/head.jpg">
+        <strong>登录</strong>
+      </div>
+      <div v-if="$store.state.hasLogin === true" class="loginOrMine">
+        <img class="head" alt="头像" src="../../../../static/head.jpg">
+        <strong>欢迎回来</strong>
       </div>
     </div>
-    <div class="choiceThings">
-      <div @click="personMessage" class="personMessage">
-        <img id="personMessage" src="../../../../static/personMessage.svg" alt="personMessage">
-        <strong>个人信息</strong>
-        <img class="enter" src="../../../../static/enter.svg" alt="enter">
+    <transition name="slide">
+      <div v-show="display" class="choiceThings">
+        <div @click="personMessage" class="personMessage">
+          <img id="personMessage" src="../../../../static/personMessage.svg" alt="personMessage">
+          <strong>个人信息</strong>
+          <img class="enter" src="../../../../static/enter.svg" alt="enter">
+        </div>
+        <hr/>
+        <div class="useHelp">
+          <img id="useHelp" src="../../../../static/useHelp.svg" alt="useHelp">
+          <strong>使用帮助</strong>
+          <img class="enter" src="../../../../static/enter.svg" alt="enter">
+        </div>
+        <hr/>
+        <div @click="accountSafe" class="accountSafe">
+          <img id="accountSafe" src="../../../../static/accountSafe.svg" alt="accountSafe">
+          <strong>账号安全</strong>
+          <img class="enter" src="../../../../static/enter.svg" alt="enter">
+        </div>
       </div>
-      <hr/>
-      <div class="useHelp">
-        <img id="useHelp" src="../../../../static/useHelp.svg" alt="useHelp">
-        <strong>使用帮助</strong>
-        <img class="enter" src="../../../../static/enter.svg" alt="enter">
-      </div>
-      <hr/>
-      <div @click="accountSafe" class="accountSafe">
-        <img id="accountSafe" src="../../../../static/accountSafe.svg" alt="accountSafe">
-        <strong>账号安全</strong>
-        <img class="enter" src="../../../../static/enter.svg" alt="enter">
-      </div>
-    </div>
+    </transition>
     <email-change v-show="emailHasChange" @cancelChangeEmail="cancelChangeEmail"></email-change>
   </div>
 </template>
@@ -42,12 +49,14 @@ export default {
 
   data () {
     return {
-      emailHasChange: false
+      emailHasChange: false,
+      display: false
     }
   },
 
   mounted () {
     this.changeRoute('me')
+    setTimeout(() => { this.display = true }, 300)
   },
 
   methods: {
@@ -84,6 +93,9 @@ export default {
 
   strong {
     margin-left: 30px;
+    position: absolute;
+    top: 50%;
+    transform:translate(0, -50%);
   }
 
   .enter {
@@ -126,7 +138,7 @@ export default {
     transform:translate(0, -50%);
   }
 
-  #head {
+  .head {
     position: relative;
     top: 50%;
     left: 20px;
@@ -161,5 +173,10 @@ export default {
     height: 97px;
     left: 50%;
     transform:translate(-50%, 0);
+  }
+
+  .loginOrMine strong {
+    position: absolute;
+    right: 30px;
   }
 </style>

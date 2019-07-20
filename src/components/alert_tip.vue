@@ -1,13 +1,15 @@
 <template>
-  <div class='fullScream'>
-    <div class='model'>
-      <div class="alertText">{{alertText}}</div>
-      <hr/>
-      <div class="close">
-        <button @click="handleClick">确认</button>
+  <transition name="fade">
+    <div class='fullScream'>
+      <div class='model'>
+        <div class="alertText">{{alertText}}</div>
+        <hr/>
+        <div class="close">
+          <button @click="handleClick">确认</button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -34,12 +36,12 @@ export default {
     left: 0;
     top: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 12;
   }
 
   .model {
     padding: 20px;
     position: absolute;
-    z-index: 11;
     border-radius: 7px;
     left: 50%;
     top: 50%;

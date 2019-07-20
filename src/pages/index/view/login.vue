@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+    <div id="app">
     <div class="loginHead"></div>
     <div align="center" class="loginCenter">
       <h2>Mappin</h2>
@@ -11,18 +11,22 @@
         <label for="password"></label>
         <input placeholder="密码" name="password" id="password" type="password" v-model="password"/>
       </div>
-      <div v-show="isRegister">
-        <label for="captchaCode"></label>
-        <input placeholder="验证码" name="password" id="captchaCode" type="text" v-model="captchaCode"/>
-        <label for="ResisterEmail"></label>
-        <input placeholder="邮箱" name="ResisterEmail" id="ResisterEmail" type="text" v-model="ResisterEmail"/>
-      </div>
+      <transition name="fade">
+        <div v-show="isRegister">
+          <label for="captchaCode"></label>
+          <input placeholder="验证码" name="password" id="captchaCode" type="text" v-model="captchaCode"/>
+          <label for="ResisterEmail"></label>
+          <input placeholder="邮箱" name="ResisterEmail" id="ResisterEmail" type="text" v-model="ResisterEmail"/>
+        </div>
+      </transition>
     </div>
     <div class="loginFoot">
-      <div align="center" v-show="isRegister">
-        <img @click="getCaptchaCode" :src=this.captchaCodeImg alt="img is wrong"/>
-        <button class="defaultButton" v-show="isRegister === true" @click="accountRegister">注册</button>
-      </div>
+      <transition name="fade">
+        <div align="center" v-show="isRegister">
+          <img @click="getCaptchaCode" :src=this.captchaCodeImg alt="img is wrong"/>
+          <button class="defaultButton" v-show="isRegister === true" @click="accountRegister">注册</button>
+        </div>
+      </transition>
       <div align="center">
         <button class="defaultButton" v-show="isRegister === false" @click="accountLogin">登录</button>
       </div>
@@ -99,21 +103,22 @@ export default {
         username: this.username,
         password: this.password
       }
-      this.login() // 测试!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       let userInfo = await API.accountLogin(data)
       if (userInfo.tip) {
         this.hasAlert = true
         this.alertText = userInfo.tip
-      } else if (userInfo.response.message !== 'OK') {
-        this.alertText = userInfo.response.message
+      } else if (userInfo.status !== 1) {
+        this.alertText = userInfo.message
         this.hasAlert = true
-      } else if (userInfo.response.message === 'OK') {
+      } else if (userInfo.status === 1) {
         localStorage.setItem('token', userInfo.token)
+        this.login()
         this.$router.push({name: 'makePoint'})
       }
     },
 
     async accountRegister () {
+      this.getCaptchaCode()
       let data = {
         captcha_code: this.captchaCode,
         username: this.username,
@@ -121,16 +126,16 @@ export default {
         email: this.ResisterEmail
       }
       this.userInfo = await API.CaptchaCode(data)
-      if (this.userInfo.response.message === '验证码不正确') {
-        this.alertText = this.userInfo.response.message
+      if (this.userInfo.message === '验证码不正确') {
+        this.alertText = this.userInfo.message
         this.hasAlert = true
       } else {
         let res = await API.accountRegister(data)
         if (res.tip) {
           this.hasAlert = true
           this.alertText = res.tip
-        } else if (res.response.message !== 'OK') {
-          this.alertText = res.response.message
+        } else if (res.status !== '1') {
+          this.alertText = res.message
           this.hasAlert = true
         }
       }
