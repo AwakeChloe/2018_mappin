@@ -1,7 +1,9 @@
 <template>
   <div class="app">
     <vtoper class="vtoper"/>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 

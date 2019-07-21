@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.354 35.354">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="组_59" data-name="组 59" transform="translate(-16 -101)">
+    <line id="直线_2" data-name="直线 2" class="cls-1" x2="10" y2="10" transform="translate(41 126)"/>
+    <g id="椭圆_1" data-name="椭圆 1" class="cls-2" transform="translate(16 101)">
+      <circle class="cls-3" cx="16.25" cy="16.25" r="16.25"/>
+      <circle class="cls-4" cx="16.25" cy="16.25" r="15.75"/>
+    </g>
+  </g>
+</svg>
