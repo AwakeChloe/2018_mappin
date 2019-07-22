@@ -122,7 +122,6 @@ export default {
           this.alertText = '定位失败,位置信息不可用'
           break
         case error.TIMEOUT:
-          alert('定位失败,请求获取用户位置超时')
           this.hasAlert = true
           this.alertText = '定位失败,请求获取用户位置超时'
           break
