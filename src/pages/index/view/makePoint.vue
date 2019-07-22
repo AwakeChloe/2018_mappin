@@ -114,22 +114,27 @@ export default {
       this.geolocationByIp()
       switch (error.code) {
         case error.PERMISSION_DENIED:
-          alert('定位失败,用户拒绝请求地理定位')
+          this.hasAlert = true
+          this.alertText = '定位失败,用户拒绝请求地理定位'
           break
         case error.POSITION_UNAVAILABLE:
-          alert('定位失败,位置信息是不可用')
+          this.hasAlert = true
+          this.alertText = '定位失败,位置信息不可用'
           break
         case error.TIMEOUT:
           alert('定位失败,请求获取用户位置超时')
+          this.hasAlert = true
+          this.alertText = '定位失败,请求获取用户位置超时'
           break
         case error.UNKNOWN_ERROR:
-          alert('定位失败,定位系统失效')
+          this.hasAlert = true
+          this.alertText = '定位失败,定位系统失效'
           break
       }
     },
 
     geolocationByh5 () {
-      this.map.clearOverlays()
+      this.map.clearOverlays() // 清除已经定位过的点
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition, this.showError, {
           enableHighAcuracy: true, // 指示浏览器获取高精度的位置，默认为false
