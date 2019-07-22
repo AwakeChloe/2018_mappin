@@ -71,6 +71,7 @@ export default {
     // eslint-disable-next-line no-undef
     this.searchButton = new BMap.LocalSearch(this.map, {renderOptions: {map: this.map}})
     this.autoPoint()
+    this.geolocationByh5()
   },
 
   methods: {
@@ -128,6 +129,7 @@ export default {
     },
 
     geolocationByh5 () {
+      this.map.clearOverlays()
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition, this.showError, {
           enableHighAcuracy: true, // 指示浏览器获取高精度的位置，默认为false
@@ -213,6 +215,7 @@ export default {
         let markerName = pointPosition.data[i]['id']
         // eslint-disable-next-line no-undef
         markerName = new BMap.Marker(new BMap.Point(pointPosition.data[i]['lng'], pointPosition.data[i]['lat']))
+        markerName.disableMassClear()
         this.map.addOverlay(markerName)
         markerName.addEventListener('click', () => {
           this.getOnePoint(pointPosition.data[i]['id'])
