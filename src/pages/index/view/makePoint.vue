@@ -14,7 +14,7 @@
         <span>创建标注</span>
         <img id="create" src="../../../../static/create.svg" alt="创建"/>
       </button>
-      <button id="geolocation" @click="geolocation">
+      <button id="geolocation" @click="geolocationByh5">
         <span>当前位置</span>
         <img id="geolocationImg" src="../../../../static/geolocation.svg" alt="定位"/>
       </button>
@@ -89,7 +89,57 @@ export default {
       this.point_lat = e.point.lat
     },
 
-    geolocation () {
+    showPosition (position) {
+      let lat = position.coords.latitude
+      let lng = position.coords.longitude
+      // eslint-disable-next-line no-undef
+      const pointBak = new BMap.Point(lng, lat)
+      // eslint-disable-next-line no-undef
+      const convertor = new BMap.Convertor()
+      convertor.translate([pointBak], 1, 5, (res) => {
+        lng = res.points[0].lng
+        lat = res.points[0].lat
+        // eslint-disable-next-line no-undef
+        const point = new BMap.Point(lng, lat)
+        // eslint-disable-next-line no-undef
+        let marker = new BMap.Marker(point)
+        this.map.addOverlay(marker)
+        this.map.panTo(point)
+        alert('Latitude: ' + lat + 'Longitude: ' + lng)
+      })
+    },
+
+    showError (error) {
+      this.geolocationByIp()
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert('定位失败,用户拒绝请求地理定位')
+          break
+        case error.POSITION_UNAVAILABLE:
+          alert('定位失败,位置信息是不可用')
+          break
+        case error.TIMEOUT:
+          alert('定位失败,请求获取用户位置超时')
+          break
+        case error.UNKNOWN_ERROR:
+          alert('定位失败,定位系统失效')
+          break
+      }
+    },
+
+    geolocationByh5 () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition, this.showError, {
+          enableHighAcuracy: true, // 指示浏览器获取高精度的位置，默认为false
+          timeout: 5000, // 指定获取地理位置的超时时间，默认不限时，单位为毫秒
+          maximumAge: 2000 // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。
+        })
+      } else {
+        this.geolocationByIp()
+      }
+    },
+
+    geolocationByIp () {
       // eslint-disable-next-line no-undef
       let geolocation = new BMap.Geolocation()
       geolocation.getCurrentPosition((r) => {
